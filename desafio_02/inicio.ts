@@ -1,4 +1,4 @@
-enum Rol{
+enum Rol {
     ADMIN = 'admin',
     MIEMBRO = 'miembro',
     INVITADO = 'invitado',
@@ -10,15 +10,22 @@ interface Usuario {
     rol: Rol;
 }
 
-
-function obtenerRol(rol: string): Rol{
-    
+function esValido(value: string): value is Rol {
+    return Object.values<string>(Rol).includes(value);
 }
 
-function crearUsuario(email: string, usuario: string, rol: string): Usuario{
+function getRole(rol: string) {
+    if (!esValido(rol)) {
+        throw new Error('El rol no es valido')
+    } else return rol
+}
+
+function crearUsuario(email: string, usuario: string, rol: string): Usuario {
     return {
         email,
         usuario,
-        rol: obtenerRol(rol)
+        rol: getRole(rol)
     }
 }
+
+console.log(crearUsuario('fuck@fuck.com', "QueEjercicioDeMierda", "admin"));
